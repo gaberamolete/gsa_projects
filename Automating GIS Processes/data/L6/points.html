@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bokeh Plot</title>
+<style>
+      html, body {
+        box-sizing: border-box;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-3.0.3.min.js"></script>
+    <script type="text/javascript">
+        Bokeh.set_log_level("info");
+    </script>
+  </head>
+  <body>
+    <div id="f28ea85f-d8e6-4323-8954-0e32c93a2c14" data-root-id="p1884" style="display: contents;"></div>
+  
+    <script type="application/json" id="p2116">
+      {"0bae8027-1b16-4f0d-b499-b8b4f5b6df95":{"version":"3.0.3","title":"Bokeh Application","defs":[],"roots":[{"type":"object","name":"Figure","id":"p1884","attributes":{"x_range":{"type":"object","name":"DataRange1d","id":"p1886"},"y_range":{"type":"object","name":"DataRange1d","id":"p1885"},"x_scale":{"type":"object","name":"LinearScale","id":"p1898"},"y_scale":{"type":"object","name":"LinearScale","id":"p1900"},"title":{"type":"object","name":"Title","id":"p1887","attributes":{"text":"My first interactive plot!"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1940","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1934","attributes":{"selected":{"type":"object","name":"Selection","id":"p1935","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1936"},"data":{"type":"map","entries":[["x",[0,1,2,3,4]],["y",[5,4,1,2,0]]]}}},"view":{"type":"object","name":"CDSView","id":"p1941","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1942"}}},"glyph":{"type":"object","name":"Circle","id":"p1937","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":10},"line_color":{"type":"value","value":"red"},"fill_color":{"type":"value","value":"red"},"hatch_color":{"type":"value","value":"red"}}},"nonselection_glyph":{"type":"object","name":"Circle","id":"p1938","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":10},"line_color":{"type":"value","value":"red"},"line_alpha":{"type":"value","value":0.1},"fill_color":{"type":"value","value":"red"},"fill_alpha":{"type":"value","value":0.1},"hatch_color":{"type":"value","value":"red"},"hatch_alpha":{"type":"value","value":0.1}}},"muted_glyph":{"type":"object","name":"Circle","id":"p1939","attributes":{"x":{"type":"field","field":"x"},"y":{"type":"field","field":"y"},"size":{"type":"value","value":10},"line_color":{"type":"value","value":"red"},"line_alpha":{"type":"value","value":0.2},"fill_color":{"type":"value","value":"red"},"fill_alpha":{"type":"value","value":0.2},"hatch_color":{"type":"value","value":"red"},"hatch_alpha":{"type":"value","value":0.2}}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1893","attributes":{"tools":[{"type":"object","name":"PanTool","id":"p1916"},{"type":"object","name":"WheelZoomTool","id":"p1917"},{"type":"object","name":"BoxZoomTool","id":"p1918","attributes":{"overlay":{"type":"object","name":"BoxAnnotation","id":"p1919","attributes":{"syncable":false,"level":"overlay","visible":false,"left_units":"canvas","right_units":"canvas","bottom_units":"canvas","top_units":"canvas","line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5}}}},{"type":"object","name":"SaveTool","id":"p1920"},{"type":"object","name":"ResetTool","id":"p1921"},{"type":"object","name":"HelpTool","id":"p1922"}]}},"left":[{"type":"object","name":"LinearAxis","id":"p1909","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1911","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1910"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1912"}}}],"below":[{"type":"object","name":"LinearAxis","id":"p1902","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1904","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1903"},"major_label_policy":{"type":"object","name":"AllLabels","id":"p1905"}}}],"center":[{"type":"object","name":"Grid","id":"p1908","attributes":{"axis":{"id":"p1902"}}},{"type":"object","name":"Grid","id":"p1915","attributes":{"dimension":1,"axis":{"id":"p1909"}}}]}}]}}
+    </script>
+    <script type="text/javascript">
+      (function() {
+        const fn = function() {
+          Bokeh.safely(function() {
+            (function(root) {
+              function embed_document(root) {
+              const docs_json = document.getElementById('p2116').textContent;
+              const render_items = [{"docid":"0bae8027-1b16-4f0d-b499-b8b4f5b6df95","roots":{"p1884":"f28ea85f-d8e6-4323-8954-0e32c93a2c14"},"root_ids":["p1884"]}];
+              root.Bokeh.embed.embed_items(docs_json, render_items);
+              }
+              if (root.Bokeh !== undefined) {
+                embed_document(root);
+              } else {
+                let attempts = 0;
+                const timer = setInterval(function(root) {
+                  if (root.Bokeh !== undefined) {
+                    clearInterval(timer);
+                    embed_document(root);
+                  } else {
+                    attempts++;
+                    if (attempts > 100) {
+                      clearInterval(timer);
+                      console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                    }
+                  }
+                }, 10, root)
+              }
+            })(window);
+          });
+        };
+        if (document.readyState != "loading") fn();
+        else document.addEventListener("DOMContentLoaded", fn);
+      })();
+    </script>
+  </body>
+</html>

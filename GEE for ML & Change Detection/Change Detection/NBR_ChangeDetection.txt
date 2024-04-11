@@ -1,0 +1,64 @@
+// Code https://code.earthengine.google.com/4315443bc968632c0779262e938dc0ab
+
+
+// SPECTRAL INDEX CHANGE DETECTION
+
+// Import LAndsat Images
+var sr = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR");
+
+// These are the input features:
+var bands = ['B2', 'B3', 'B4', 'B5', 'B6', 'B7'];
+
+// Function to composite Landsat 8 SR imagery and atmospheric correction.
+var compositeFunctionSR = function(image) {
+  // Bits 3 and 5 are cloud shadow and cloud, respectively.
+var cloudShadowBitMask = ee.Number(2).pow(3).int();
+var cloudsBitMask = ee.Number(2).pow(5).int();
+var qa = image.select('pixel_qa');
+// Both flags should be set to zero, indicating clear conditions. 
+var mask = qa.bitwiseAnd(cloudShadowBitMask).eq(0).and(
+            qa.bitwiseAnd(cloudsBitMask).eq(0));
+return image
+// Scale the data to reflectance and temperature.
+      .select(['B[1-7]']).multiply(0.0001)
+      .addBands(image.select(['B10', 'B11']).multiply(0.1))
+      .updateMask(mask);
+};  
+
+var compositeBefore = sr.filterDate('2016-02-01', '2016-08-01')
+                          .map(compositeFunctionSR)
+                          .median();
+var compositeLater = sr.filterDate('2017-02-01', '2017-08-01')
+                          .map(compositeFunctionSR)
+                          .median();
+
+var rgbVis = {bands: ['B4', 'B3', 'B2'], min: 0, max: 0.3};
+Map.addLayer(compositeBefore, rgbVis, 'compositeBefore');
+Map.addLayer(compositeLater, rgbVis, 'compositeLater');
+
+// NBR:
+var nbrFunction = function(image) {
+  return image.addBands(image.expression(
+    '(nir - 0.0001 * swir * thermal) / ' +
+    '(nir + 0.0001 * swir * thermal)', {
+      nir: image.select('B5'),
+      swir: image.select('B7'),
+      thermal: image.select('B11')
+    }).rename('NBR').clamp(-1, 1));
+};
+
+var nbrBefore = nbrFunction(compositeBefore).select('NBR');
+Map.addLayer(nbrBefore, {min: -0.2, max: 1}, 'nbrBefore');
+
+var nbrLater = nbrFunction(compositeLater).select('NBR');
+Map.addLayer(nbrLater, {min: -0.2, max: 1}, 'nbrLater');
+
+var dNBRt = nbrLater.subtract(nbrBefore);
+Map.addLayer(dNBRt, {min: -0.3, max: 0}, 'dNBRt');
+
+var burned = dNBRt.lt(-0.02).rename('burned');
+Map.addLayer(burned.updateMask(burned), {palette: ['red']}, 'burned');
+
+
+
+
